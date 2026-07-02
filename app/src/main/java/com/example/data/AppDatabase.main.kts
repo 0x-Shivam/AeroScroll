@@ -1,2 +1,17 @@
-#!/usr/bin/env kotlin
+package com.example.data
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
+@Database(entities = [DailyScroll::class, Friend::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun reelDao(): ReelDao
+
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+    }
+}
