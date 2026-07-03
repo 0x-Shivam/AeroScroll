@@ -3,12 +3,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import org.jetbrains.kotlin.org.codehaus.plexus.context.Context
 
 @Database(entities = [DailyScroll::class, Friend::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun reelDao(): ReelDao
-
 
     companion object {
         @Volatile
@@ -18,13 +16,12 @@ abstract class AppDatabase : RoomDatabase() {
             return INSTANCE ?: synchronized (this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java
+                    AppDatabase::class.java,
                     "reel_track_database"
                 ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }
         }
-
     }
 }
