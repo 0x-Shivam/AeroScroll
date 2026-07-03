@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foun
 import java.nio.file.WatchEvent
+import java.util.function.ObjDoubleConsumer
+
 dation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -247,3 +249,138 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
 
 
    // SIMULATED STATUS BAR
+   @Composable
+   fun StatusSimulation() {
+       Row(
+           modifier = Modifier
+               .fillMaxWidth()
+               .padding(horizontal = 24.dp, vertical = 6.dp),
+           horizontalArrangement = Arrangement.SpaceBetween,
+           verticalAlignment = Alignment.CenterVertically
+       ) {
+           Text(
+               text = "9:41",
+               style = MaterialTheme.typography.labelMedium.copy(
+                   fontWeight = FontWeight.Bold,
+                   color = SleekText,
+                   fontSize = 13.sp
+               )
+           )Row(
+                   verticalAlignment = Alignment.CenterVertically,
+           horizontalArrangement = Arrangement.spacedBy(4.dp)
+           ) {
+           Icon(
+               imageVector = Icons.Default.Wifi,
+               contentDescription = "Wifi",
+               tint = SleekText,
+               modifier = Modifier.size(14.dp)
+           )
+           Icon(
+               imageVector = Icons.Default.BatteryFull,
+               contentDescription = "Battery",
+               tint = SleekText,
+               modifier = Modifier.size(14.dp)
+           )
+       }
+       }
+   }
+
+
+// CUSTOM TOP APP BAR
+@Composable
+fun HeaderBar(userInitials: String, onMenuClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .padding(horizontal = 12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = onMenuClick) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Info Menu",
+                    tint = SleekText
+                )
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "AeroScroll",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = SleekText,
+                    fontSize = 20.sp
+                )
+            )
+        }
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .clip(CircleShape)
+                .background(SleekPrimary),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = userInitials,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 13.sp
+            )
+        }
+    }
+}
+
+
+/ ABOUT DIALOG CONTENT
+@Composable
+fun AboutInfoDialog(onDismiss: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        colors = CardDefaults.cardColors(containerColor = SleekSurfaceVariant),
+        shape = RoundedCornerShape(24.dp),
+        border = BorderStroke(1.dp, SleekOutline),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Default.Info,
+                contentDescription = "Info",
+                tint = SleekPrimary,
+                modifier = Modifier.size(32.dp)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "About AeroScroll",
+                fontWeight = FontWeight.Bold,
+                color = SleekText,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = "Track your scroll session, calculate estimated time spent, and compete with friend using customized squad invite links! Built offline-first with local Room persistence and high-fidelity scrolling simulator.",
+                fontSize = 13.sp,
+                color = SleekOnSurfaceVariant.copy(alpha = 0.85f),
+                textAling = TextAling.Center,
+                lineHeight = 18.sp
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedButton(
+                onClick = onDismiss,
+
+            )
+
+
+
+
+
+
+
+
+
