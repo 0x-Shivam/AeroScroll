@@ -4,44 +4,36 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.ui.theme.AeroScrollTheme
+import androidx.activity.viewModels
+import androidx.room.Room
+import com.example.data.AppDatabase
+import com.example.data.ReelRepository
+import com.example.ui.ReelTrackApp
+import com.example.ui.ReelViewModel
+import com.example.ui.ReelViewModelFactory
+import com.example.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
+    private val database by lazy {
+        AppDatabase.getDatabase(applicationContext)
+    }
+
+    private val repository by lazy {
+        ReelRepository(database.reelDao())
+    }
+
+    private val viewModel: ReelViewModel by viewModels {
+        ReelViewModelFactory(repository)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AeroScrollTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            MyApplicationTheme {
+                ReelTrackApp(viewModel = viewModel)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AeroScrollTheme {
-        Greeting("Android")
-    }
-}
