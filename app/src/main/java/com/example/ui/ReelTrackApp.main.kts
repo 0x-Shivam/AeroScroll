@@ -247,3 +247,50 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
 
 
    // SIMULATED STATUS BAR
+   @Composable
+   fun StatusSimulation() {
+       Row(
+           modifier = Modifier
+               .fillMaxWidth()
+               .padding(horizontal = 24.dp, vertical = 6.dp),
+           horizontalArrangement = Arrangement.SpaceBetween,
+           verticalAlignment = Alignment.CenterVertically
+       ) {
+           Text(
+               text = "9:41",
+               style = MaterialTheme.typography.labelMedium.copy(
+                   fontWeight = FontWeight.Bold,
+                   color = SleekText,
+                   fontSize = 13.sp
+               )
+           )Row(
+                   verticalAlignment = Alignment.CenterVertically,
+           horizontalArrangement = Arrangement.spacedBy(4.dp)
+           ) {
+           Icon(
+               imageVector = Icons.Default.Wifi,
+               contentDescription = "Wifi",
+               tint = SleekText,
+               modifier = Modifier.size(14.dp)
+           )
+           Icon(
+               imageVector = Icons.Default.BatteryFull,
+               contentDescription = "Battery",
+               tint = SleekText,
+               modifier = Modifier.size(14.dp)
+           )
+       }
+       }
+   }
+
+
+// CUSTOM TOP APP BAR
+@Composable
+fun HeaderBar(userInitials: String, onMenuClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .padding(horizontal = 12.dp),
+
+
