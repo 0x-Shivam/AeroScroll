@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foun
+import java.lang.reflect.Modifier
 import java.nio.file.WatchEvent
 import java.util.function.ObjDoubleConsumer
 
@@ -713,6 +714,203 @@ fun TrackerTab(
                 }
             }
         }
+
+
+        // Quick Manual Actions Fallback Card
+        item {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                border = BorderStroke(1.dp, SleekOutline)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Quick Manual Adjustment",
+                        fontWeight = FontWeight.Bold,
+                        color = SleekText,
+                        fontSize = 15.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Start
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Subtract Button
+                        IconButton(
+                            onClick = { viewModel.updateScrollCount(-1) },
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clip(CircleShape)
+                                .background(SleekSurfaceVariant)
+                                .testTag("subtract_one_reel_btn")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Remove,
+                                contentDescription = "Minus 1",
+                                tint = SleekPrimary
+                            )
+                        }
+
+                        // Giant Primary +1 Button
+                        Button(
+                            onClick = { viewModel.updateScrollCount(1) },
+                            colors = ButtonDefaults.buttonColors(containerColor = SleekPrimary),
+                            modifier = Modifier
+                                .height(52.dp)
+                                .weight(0.6f)
+                                .padding(horizontal = 8.dp)
+                                .testTag("add_one_reel_btn"),
+                            shape = RoundedCornerShape(50)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add Icon",
+                                tint = Color.White
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "Manual Scroll +1",
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White,
+                                fontSize = 14.sp
+                            )
+                        }
+
+                        // Add +10 Shortcut Button
+                        Button(
+                            onClick = { viewModel.updateScrollCount(10) },
+                            colors = ButtonDefaults.buttonColors(containerColor = SleekSurfaceVariant),
+                            modifier = Modifier
+                                .height(44.dp)
+                                .testTag("add_ten_reels_btn"),
+                            shape = RoundedCornerShape(50)
+                        ) {
+                            Text(
+                                text = "+10",
+                                fontWeight = FontWeight.Bold,
+                                color = SleekPrimary,
+                                fontSize = 14.sp
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        item { Spacer(modifier = Modifier.height(12.dp)) }
+    }
+}
+
+ // comprehensive state Tab
+
+@Camposable
+fun StatsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
+    var myCurrentCount = 0
+    val totalSquadCount = leaderboard.sumOf { it.count }
+    val friendCount = leaderboard.size
+
+    val me = leaderboard.firstOrNull { it.isMe }
+    if (me != null) {
+        myCurrentCount = me.count
+    }
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        item {
+            Text(
+                text = "Competitiveness Analysis",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                color = SleekText,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+
+        // Quick Stats Grid simulation
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                // Engagement card
+                Card(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = SleekSurfaceVariant)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "My Scroll Share",
+                            fontSize = 12.sp,
+                            color = SleekOnSurfaceVariant,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        val percentage = if (totalSquadCount > 0) {
+                            ((myCurrentCount.toFloat() / totalSquadCount.toFloat()) * 100).roundToInt()
+                        } else 0
+                        Text(
+                            text = "$percentage%",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SleekText
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "of squad total ($totalSquadCount)",
+                            fontSize = 10.sp,
+                            color = SleekOnSurfaceVariant.copy(alpha = 0.7f)
+                        )
+                    }
+                }
+                // Time Saved card
+                Card(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = SleekSurfaceVariant)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "Time Spent",
+                            fontSize = 12.sp,
+                            color = SleekOnSurfaceVariant,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        val minutesSpent = (myCurrentCount * 18) / 60
+                        Text(
+                            text = "${minutesSpent}m",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SleekText
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "Estimated watch time",
+                            fontSize = 10.sp,
+                            color = SleekOnSurfaceVariant.copy(alpha = 0.7f)
+                        )
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
 
 
 
