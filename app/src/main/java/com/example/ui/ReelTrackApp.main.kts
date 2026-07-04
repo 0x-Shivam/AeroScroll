@@ -523,6 +523,209 @@ fun SleekCentralCounter(
 
 
 
+/// Main TRACKER VIEWER (Home)
+
+@Composable
+fun TrackerTab(
+    viewModel: ReelViewModel,
+    reelsCount: Int,
+    timeString: String,
+    avgSeconds: Int
+) {
+    val context = LocalContext.current
+    var isServiceEnabled by remember { mutableStateOf(false) }
+
+    // Check status dynamically when user enters or returns to the app
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                isServiceEnabled = com.example.service.AeroScrollAccessibilityService.isServiceEnabled(context)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangment = Arrangment.spacedBy(16.dp)
+    ) {
+        // Today's Sleek Circular Dial Counter
+        item {
+            SleekCentralCounter(
+                reelsCount = reelsCount,
+                timeString = timeString,
+                avgSeconds = avgSeconds
+            )
+        }
+
+// Accessibility Tracker Status Card
+        item {
+            card(
+                modifier = Modifier.fillMaxWidth().testTag("service_status_card"),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                border = BorderStroke(1.dp, SleekOutline)
+            ) {
+                Column(modifier = Modifier.padding(20.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Instagram Auto-Tracker",
+                                fontWeight = FontWeight.Bold,
+                                color = SleekText,
+                                fontSize = 16.sp
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "Background accessibility hook for Instagram",
+                                fontSize = 11.sp,
+                                color = SleekOnSurfaceVariant
+                            )
+                        }
+
+                        // Active/Inactive badge
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(50))
+                                .background(if (isServiceEnabled) Color(0xFFE8F5E9) else Color(0xFFFFEBEE))
+                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(8.dp)
+                                    .clip(CircleShape)
+                                    .background(if (isServiceEnabled) Color(0xFF4CAF50) else Color(0xFFF44336))
+                            )
+                            Text(
+                                text = if (isServiceEnabled) "RUNNING" else "INACTIVE",
+                                color = if (isServiceEnabled) Color(0xFF2E7D32) else Color(0xFFC62828),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    if (!isServiceEnabled) {
+                        Text(
+                            text = "To track real Reels scrolled on Instagram, you must enable AeroScroll's accessibility permission. Your scrolling data is processed 100% locally and never leaves your device.",
+                            fontSize = 12.sp,
+                            color = SleekAccent,
+                            lineHeight = 18.sp
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(
+                            onClick = {
+                                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = SleekPrimary),
+                            shape = RoundedCornerShape(50),
+                            modifier = Modifier.fillMaxWidth().testTag("enable_tracker_btn")
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = "Settings Icon",
+                                tint = Color.White,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Grant Accessibility Permission", color = Color.White, fontWeight = FontWeight.Bold)
+                        }
+                    } else {
+                        Text(
+                            text = "Auto-Tracker is active! AeroScroll is listening for vertical scrolls inside Instagram in the background and auto-counting them.",
+                            fontSize = 12.sp,
+                            color = SleekAccent,
+                            lineHeight = 18.sp
+                        )
+                    }
+                }
+            }
+        }
+
+        // Launch Instagram Card
+        item {
+            Card(
+                modifier = Modifier.fillMaxWidth().testTag("launch_instagram_card"),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                border = BorderStroke(1.dp, SleekOutline)
+            ) {
+                Column(modifier = Modifier.padding(20.dp)) {
+                    Text(
+                        text = "Launch & Scroll",
+                        fontWeight = FontWeight.Bold,
+                        color = SleekText,
+                        fontSize = 16.sp
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Launch Instagram and browse Reels. Every vertical swipe will be counted dynamically in real-time.",
+                        fontSize = 12.sp,
+                        color = SleekAccent,
+                        lineHeight = 18.sp
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Button(
+                        onClick = {
+                            val launchIntent = context.packageManager.getLaunchIntentForPackage("com.instagram.android")
+                            if (launchIntent != null) {
+                                context.startActivity(launchIntent)
+                            } else {
+                                try {
+                                    val marketIntent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("market://details?id=com.instagram.android"))
+                                    context.startActivity(marketIntent)
+                                } catch (e: Exception) {
+                                    val webIntent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://play.google.com/store/apps/details?id=com.instagram.android"))
+                                    context.startActivity(webIntent)
+                                }
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = SleekSecondaryContainer),
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier.fillMaxWidth().testTag("launch_instagram_btn")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = "Launch",
+                            tint = SleekPrimary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "Launch Instagram",
+                            color = SleekPrimary,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
