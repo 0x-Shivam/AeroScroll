@@ -373,8 +373,156 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedButton(
                 onClick = onDismiss,
+                border = BorderStroke(1.dp, SleekOutline),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = SleekPrimary),
+                shape = RoundedCornerShape(50)
 
+            ) {
+                Text("Dismiss", fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+
+
+// Sleek Central Activity Dial Counter Composable
+
+@Composable
+fun SleekCentralCounter(
+    reelsCount: Int,
+    timeString: String,
+    avgSeconds: Int,
+    modifier: Modifier = Modifier
+) {
+    // Progress towards daily goal (e.g. 150 reels)
+    val dailyTarget = 150f
+    val progress = (reelsCount.toFloat() / dailyTarget).coerceIn(0f, 1f)
+
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag("sleek_central_counter_card"),
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        border = BorderStroke(1.dp, SleekOutline)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(24.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "TODAY'S SCROLL STATUS",
+                style = MaterialTheme.typography.labelMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = SleekAccent,
+                    letterSpacing = 1.2.sp
+                ),
+                modifier = Modifier.padding(bottom = 16.dp)
             )
+
+            // Central Ring Layout
+            Box(
+                modifier = Modifier
+                    .size(190.dp)
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                // Background Track and Progress Ring
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                    // Track circle
+                    drawCircle(
+                        color = Color(0xFFF3EDF7),
+                        radius = size.minDimension / 2f,
+                        style = Stroke(width = 14.dp.toPx(), cap = StrokeCap.Round)
+                    )
+                    // Progress arc
+                    drawArc(
+                        color = SleekPrimary,
+                        startAngle = -90f,
+                        sweepAngle = progress * 360f,
+                        useCenter = false,
+                        style = Stroke(width = 14.dp.toPx(), cap = StrokeCap.Round)
+                    )
+                }
+
+                // Inner content displaying the large number
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "$reelsCount",
+                        style = MaterialTheme.typography.displayLarge.copy(
+                            fontWeight = FontWeight.ExtraBold,
+                            color = SleekText,
+                            fontSize = 48.sp
+                        )
+                    )
+                    Text(
+                        text = "reels scrolled",
+                        color = SleekAccent,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 11.sp,
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Lower Info Bar
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(SleekSurfaceVariant, RoundedCornerShape(16.dp))
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text(
+                        text = "Estimated Time",
+                        fontSize = 11.sp,
+                        color = SleekOnSurfaceVariant.copy(alpha = 0.8f),
+                        fontWeight = FontWeight.Medium
+                    )
+                    Text(
+                        text = timeString,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = SleekText
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .width(1.dp)
+                        .height(24.dp)
+                        .background(SleekOutline)
+                )
+                Column(horizontalAlignment = Alignment.End) {
+                    Text(
+                        text = "Avg Speed",
+                        fontSize = 11.sp,
+                        color = SleekOnSurfaceVariant.copy(alpha = 0.8f),
+                        fontWeight = FontWeight.Medium
+                    )
+                    Text(
+                        text = "${avgSeconds}s / reel",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = SleekText
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+
 
 
 

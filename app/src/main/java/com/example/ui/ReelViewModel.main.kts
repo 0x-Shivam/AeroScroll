@@ -248,5 +248,32 @@ class ReelViewModel(private val repository: ReelRepository) : ViewModel() {
             false
         }
     }
+    fun generateMyShareLink(): String {
+        val today = _todayScroll.value?.count ?: 0
+        val myName = "You"
+        val myStatus = when {
+            today > 200 -> "Master Scroller"
+            today > 100 -> "Active Competitor"
+            today > 50 -> "Decent Scroller"
+            else -> "Catching up"
+        }
+        val encodedName = java.net.URLEncoder.encode(myName, "UTF-8")
+        val encodedStatus = java.net.URLEncoder.encode(myStatus, "UTF-8")
+        return "aeroscroll://join/squad?id=friend_me_real&name=$encodedName&count=$today&status=$encodedStatus"
+    }
+}
+
+class ReelViewModelFactory(private val repository: ReelRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ReelViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ReelViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+
+
 
 
