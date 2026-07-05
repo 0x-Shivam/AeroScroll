@@ -20,106 +20,105 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foun
-import java.lang.reflect.Modifier
 import java.nio.file.WatchEvent
-import java.util.function.ObjDoubleConsumer
 
 dation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Analytics
-import androidx.compose.material.icons.filled.BatteryFull
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Group
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Leaderboard
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material.icons.filled.Setting
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.SwapVert
-import androidx.compose.material.icons.filled.Wifi
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.Canvas
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.StrokeCap
-import android.content.Intent
-import android.provider.Settings
-import androidx.compose.runtime.DisposableEffect
-import com.example.data.DailyScroll
-import com.example.data.Friend
-import com.example.ui.theme.SleekAccent
-import com.example.ui.theme.SleekBackground
-import com.example.ui.theme.SleekOnSecondaryContainer
-import com.example.ui.theme.SleekOnSurfaceVariant
-import com.example.ui.theme.SleekOutline
-import com.example.ui.theme.SleekPrimary
-import com.example.ui.theme.SleekSecondaryContainer
-import com.example.ui.theme.SleekSelectedContainer
-import com.example.ui.theme.SleekSurfaceVariant
-import com.example.ui.theme.SleekText
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
+        import androidx.compose.foundation.layout.aspectRatio
+        import androidx.compose.foundation.layout.fillMaxHeight
+        import androidx.compose.foundation.layout.fillMaxSize
+        import androidx.compose.foundation.layout.fillMaxWidth
+        import androidx.compose.foundation.layout.height
+        import androidx.compose.foundation.layout.offset
+        import androidx.compose.foundation.layout.padding
+        import androidx.compose.foundation.layout.size
+        import androidx.compose.foundation.layout.width
+        import androidx.compose.foundation.layout.widthIn
+        import androidx.compose.foundation.lazy.LazyColumn
+        import androidx.compose.foundation.lazy.items
+        import androidx.compose.foundation.shape.CircleShape
+        import androidx.compose.foundation.shape.RoundedCornerShape
+        import androidx.compose.material.icons.Icons
+        import androidx.compose.material.icons.filled.Add
+        import androidx.compose.material.icons.filled.Analytics
+        import androidx.compose.material.icons.filled.BatteryFull
+        import androidx.compose.material.icons.filled.ContentCopy
+        import androidx.compose.material.icons.filled.Delete
+        import androidx.compose.material.icons.filled.Group
+        import androidx.compose.material.icons.filled.Home
+        import androidx.compose.material.icons.filled.Info
+        import androidx.compose.material.icons.filled.Leaderboard
+        import androidx.compose.material.icons.filled.Menu
+        import androidx.compose.material.icons.filled.PlayArrow
+        import androidx.compose.material.icons.filled.Refresh
+        import androidx.compose.material.icons.filled.Remove
+        import androidx.compose.material.icons.filled.Settings
+        import androidx.compose.material.icons.filled.Share
+        import androidx.compose.material.icons.filled.SwapVert
+        import androidx.compose.material.icons.filled.Wifi
+        import androidx.compose.material3.Button
+        import androidx.compose.material3.ButtonDefaults
+        import androidx.compose.material3.Card
+        import androidx.compose.material3.CardDefaults
+        import androidx.compose.material3.HorizontalDivider
+        import androidx.compose.material3.Icon
+        import androidx.compose.material3.IconButton
+        import androidx.compose.material3.MaterialTheme
+        import androidx.compose.material3.OutlinedButton
+        import androidx.compose.material3.OutlinedTextField
+        import androidx.compose.material3.OutlinedTextFieldDefaults
+        import androidx.compose.material3.Scaffold
+        import androidx.compose.material3.Slider
+        import androidx.compose.material3.SliderDefaults
+        import androidx.compose.material3.Text
+        import androidx.compose.runtime.Composable
+        import androidx.compose.runtime.LaunchedEffect
+        import androidx.compose.runtime.collectAsState
+        import androidx.compose.runtime.getValue
+        import androidx.compose.runtime.mutableStateOf
+        import androidx.compose.runtime.remember
+        import androidx.compose.runtime.rememberCoroutineScope
+        import androidx.compose.runtime.setValue
+        import androidx.compose.ui.Alignment
+        import androidx.compose.ui.Modifier
+        import androidx.compose.ui.draw.clip
+        import androidx.compose.ui.draw.shadow
+        import androidx.compose.ui.graphics.Brush
+        import androidx.compose.ui.graphics.Color
+        import androidx.compose.ui.input.pointer.pointerInput
+        import androidx.compose.ui.platform.LocalContext
+        import androidx.compose.ui.platform.testTag
+        import androidx.compose.ui.text.font.FontWeight
+        import androidx.compose.ui.text.style.TextAlign
+        import androidx.compose.ui.text.style.TextOverflow
+        import androidx.compose.ui.unit.IntOffset
+        import androidx.compose.ui.unit.dp
+        import androidx.compose.ui.unit.sp
+        import androidx.compose.foundation.Canvas
+        import androidx.compose.ui.graphics.drawscope.Stroke
+        import androidx.compose.ui.graphics.StrokeCap
+        import android.content.Intent
+        import android.provider.Settings
+        import androidx.compose.runtime.DisposableEffect
+        import com.example.data.DailyScroll
+        import com.example.data.Friend
+        import com.example.ui.theme.SleekAccent
+        import com.example.ui.theme.SleekBackground
+        import com.example.ui.theme.SleekOnSecondaryContainer
+        import com.example.ui.theme.SleekOnSurfaceVariant
+        import com.example.ui.theme.SleekOutline
+        import com.example.ui.theme.SleekPrimary
+        import com.example.ui.theme.SleekSecondaryContainer
+        import com.example.ui.theme.SleekSelectedContainer
+        import com.example.ui.theme.SleekSurfaceVariant
+        import com.example.ui.theme.SleekText
+        import kotlinx.coroutines.delay
+        import kotlinx.coroutines.launch
+        import kotlin.math.roundToInt
 
-    // Mock data list for simulated reels swiper
-        data class MockReel(
+
+// Mock data list for simulated reels swiper
+data class MockReel(
     val creator: String,
     val description: String,
     val likes: String,
@@ -165,15 +164,13 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
     val minutes = (totalSeconds % 3600) / 60
     val timeString = if (hours > 0) "${hours}h ${minutes}m" else "${minutes}m"
 
-// Custom user initials setup (grab from the first letters of user row)
-
 
     val myProfile = leaderboard.firstOrNull { it.isMe }
     val myName = myProfile?.name ?: "You"
     val initials = if (myName.length >= 2) {
         myName.substring(0, 2).uppercase()
     } else {
-        myName.take(1).uppercase().plus("D")
+        ()
     }
 
     Scaffold(
@@ -225,17 +222,14 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
                             timeString = timeString,
                             avgSeconds = secondsPerReel.toInt()
                         )
-
                         1 -> StatsTab(
                             viewModel = viewModel,
                             leaderboard = leaderboard
                         )
-
                         2 -> FriendsTab(
                             viewModel = viewModel,
                             leaderboard = leaderboard
                         )
-
                         3 -> SettingsTab(
                             viewModel = viewModel,
                             currentName = myName,
@@ -248,44 +242,43 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
     }
 }
 
-
-   // SIMULATED STATUS BAR
-   @Composable
-   fun StatusSimulation() {
-       Row(
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(horizontal = 24.dp, vertical = 6.dp),
-           horizontalArrangement = Arrangement.SpaceBetween,
-           verticalAlignment = Alignment.CenterVertically
-       ) {
-           Text(
-               text = "9:41",
-               style = MaterialTheme.typography.labelMedium.copy(
-                   fontWeight = FontWeight.Bold,
-                   color = SleekText,
-                   fontSize = 13.sp
-               )
-           )Row(
-                   verticalAlignment = Alignment.CenterVertically,
-           horizontalArrangement = Arrangement.spacedBy(4.dp)
-           ) {
-           Icon(
-               imageVector = Icons.Default.Wifi,
-               contentDescription = "Wifi",
-               tint = SleekText,
-               modifier = Modifier.size(14.dp)
-           )
-           Icon(
-               imageVector = Icons.Default.BatteryFull,
-               contentDescription = "Battery",
-               tint = SleekText,
-               modifier = Modifier.size(14.dp)
-           )
-       }
-       }
-   }
-
+// SIMULATED STATUS BAR
+@Composable
+fun StatusSimulation() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 6.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "9:41",
+            style = MaterialTheme.typography.labelMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = SleekText,
+                fontSize = 13.sp
+            )
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Wifi,
+                contentDescription = "Wifi",
+                tint = SleekText,
+                modifier = Modifier.size(14.dp)
+            )
+            Icon(
+                imageVector = Icons.Default.BatteryFull,
+                contentDescription = "Battery",
+                tint = SleekText,
+                modifier = Modifier.size(14.dp)
+            )
+        }
+    }
+}
 
 // CUSTOM TOP APP BAR
 @Composable
@@ -333,8 +326,7 @@ fun HeaderBar(userInitials: String, onMenuClick: () -> Unit) {
     }
 }
 
-
-/ ABOUT DIALOG CONTENT
+// ABOUT DIALOG CONTENT
 @Composable
 fun AboutInfoDialog(onDismiss: () -> Unit) {
     Card(
@@ -365,10 +357,10 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "Track your scroll session, calculate estimated time spent, and compete with friend using customized squad invite links! Built offline-first with local Room persistence and high-fidelity scrolling simulator.",
+                text = "Track your scroll sessions, calculate estimated time spent, and compete with friends using customized squad invite links! Built offline-first with local Room persistence and high-fidelity scrolling simulator.",
                 fontSize = 13.sp,
                 color = SleekOnSurfaceVariant.copy(alpha = 0.85f),
-                textAling = TextAling.Center,
+                textAlign = TextAlign.Center,
                 lineHeight = 18.sp
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -377,7 +369,6 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
                 border = BorderStroke(1.dp, SleekOutline),
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = SleekPrimary),
                 shape = RoundedCornerShape(50)
-
             ) {
                 Text("Dismiss", fontWeight = FontWeight.Bold)
             }
@@ -385,10 +376,7 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
     }
 }
 
-
-
 // Sleek Central Activity Dial Counter Composable
-
 @Composable
 fun SleekCentralCounter(
     reelsCount: Int,
@@ -522,10 +510,7 @@ fun SleekCentralCounter(
     }
 }
 
-
-
-/// Main TRACKER VIEWER (Home)
-
+// MAIN TRACKER VIEW (Home)
 @Composable
 fun TrackerTab(
     viewModel: ReelViewModel,
@@ -552,7 +537,7 @@ fun TrackerTab(
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangment = Arrangment.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // Today's Sleek Circular Dial Counter
         item {
@@ -563,9 +548,9 @@ fun TrackerTab(
             )
         }
 
-// Accessibility Tracker Status Card
+        // Accessibility Tracker Status Card
         item {
-            card(
+            Card(
                 modifier = Modifier.fillMaxWidth().testTag("service_status_card"),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -593,7 +578,6 @@ fun TrackerTab(
                         }
 
                         // Active/Inactive badge
-
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -616,6 +600,7 @@ fun TrackerTab(
                             )
                         }
                     }
+
                     Spacer(modifier = Modifier.height(16.dp))
 
                     if (!isServiceEnabled) {
@@ -715,7 +700,6 @@ fun TrackerTab(
             }
         }
 
-
         // Quick Manual Actions Fallback Card
         item {
             Card(
@@ -803,13 +787,13 @@ fun TrackerTab(
                 }
             }
         }
+
         item { Spacer(modifier = Modifier.height(12.dp)) }
     }
 }
 
- // comprehensive state Tab
-
-@Camposable
+// COMPREHENSIVE STATS TAB
+@Composable
 fun StatsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
     var myCurrentCount = 0
     val totalSquadCount = leaderboard.sumOf { it.count }
@@ -871,6 +855,7 @@ fun StatsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
                         )
                     }
                 }
+
                 // Time Saved card
                 Card(
                     modifier = Modifier.weight(1f),
@@ -903,33 +888,308 @@ fun StatsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
             }
         }
 
+        // Squad Breakdown Progress Lists
+        item {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                border = BorderStroke(1.dp, SleekOutline)
+            ) {
+                Column(modifier = Modifier.padding(20.dp)) {
+                    Text(
+                        text = "Squad Volume Breakdown",
+                        fontWeight = FontWeight.Bold,
+                        color = SleekText,
+                        fontSize = 15.sp
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    if (leaderboard.isEmpty()) {
+                        Text(
+                            "No squad statistics found. Add a friend on the Leaderboard tab!",
+                            color = SleekOnSurfaceVariant,
+                            fontSize = 13.sp
+                        )
+                    } else {
+                        leaderboard.forEach { friend ->
+                            val maxCount = leaderboard.maxOfOrNull { it.count } ?: 1
+                            val fraction = friend.count.toFloat() / maxCount.coerceAtLeast(1).toFloat()
+
+                            Column(modifier = Modifier.padding(vertical = 6.dp)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = if (friend.isMe) "You" else friend.name,
+                                        fontWeight = if (friend.isMe) FontWeight.Bold else FontWeight.Normal,
+                                        fontSize = 13.sp,
+                                        color = SleekText
+                                    )
+                                    Text(
+                                        text = "${friend.count} reels",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 13.sp,
+                                        color = SleekPrimary
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(4.dp))
+                                // Visual progress bar
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(8.dp)
+                                        .clip(RoundedCornerShape(50))
+                                        .background(SleekSurfaceVariant)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth(fraction)
+                                            .fillMaxHeight()
+                                            .clip(RoundedCornerShape(50))
+                                            .background(if (friend.isMe) SleekPrimary else SleekAccent)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Fun advice card
+        item {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = SleekSecondaryContainer)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "💡 AeroScroll Competitive Tip",
+                        fontWeight = FontWeight.Bold,
+                        color = SleekOnSecondaryContainer,
+                        fontSize = 14.sp
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Reduce your average watch time per reel! Swiping faster increases your speed and count but saves real world time. Try practicing in the Swiper Simulator to beat Alex!",
+                        fontSize = 12.sp,
+                        color = SleekOnSecondaryContainer.copy(alpha = 0.9f),
+                        lineHeight = 16.sp
+                    )
+                }
+            }
+        }
+
+        item { Spacer(modifier = Modifier.height(16.dp)) }
+    }
+}
+
+// SQUAD LEADERBOARD & INVITE TAB
+@Composable
+fun FriendsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
+    val context = LocalContext.current
+    var friendNameInput by remember { mutableStateOf("") }
+    var friendCountInput by remember { mutableStateOf("") }
+    var inviteLinkInput by remember { mutableStateOf("") }
+
+    val coroutineScope = rememberCoroutineScope()
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        item {
+            Text(
+                text = "Squad Leaderboard",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
+                color = SleekText,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+
+        // Leaders List matching HTML theme exactly
+        item {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(28.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                border = BorderStroke(1.dp, SleekOutline)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Leaderboard,
+                                contentDescription = "Leaderboard Icon",
+                                tint = SleekPrimary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = "Squad Standings",
+                                fontWeight = FontWeight.Bold,
+                                color = SleekText,
+                                fontSize = 15.sp
+                            )
+                        }
+                        Text(
+                            text = "Weekly",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SleekAccent
+                        )
+                    }
+
+                    if (leaderboard.isEmpty()) {
+                        Text(
+                            "Squad list empty. Invite your friends!",
+                            modifier = Modifier.padding(vertical = 12.dp),
+                            color = SleekOnSurfaceVariant
+                        )
+                    } else {
+                        leaderboard.forEachIndexed { index, friend ->
+                            val rank = index + 1
+                            val isUser = friend.isMe
+
+                            // Initials for avatar
+
+                            val initials = if (friend.name.length >= 2) {
+                                friend.name.substring(0, 2).uppercase()
+                            } else {
+                                friend.name.take(1).uppercase().plus("S")
+                            }
+
+                            // Dynamic Styling matching Sleek HTML
+                            val itemBgColor = if (isUser) Color.White else if (rank == 1) Color(0xFFF3EDF7) else Color.White
+                            val itemBorder = if (isUser) BorderStroke(1.dp, Color(0xFFEADDFF)) else if (rank == 1) BorderStroke(1.dp, Color.Transparent) else BorderStroke(1.dp, Color.Transparent)
+                            val leftIndicatorColor = if (rank == 1) SleekPrimary else Color.Transparent
 
 
+                            // left border highlight for Rank 1
+                            if (rank == 1) {
+                                Box(
+                                    modifier = Modifier
+                                        .width(4.dp)
+                                        .height(30.dp)
+                                        .background(leftIndicatorColor, RoundedCornerShape(50))
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                            }
+
+                            // Rank number
+                            Text(
+                                text = "$rank",
+                                fontWeight = FontWeight.Bold,
+                                color = if (rank == 1) SleekPrimary else SleekOnSurfaceVariant,
+                                fontSize = 14.sp,
+                                modifier = Modifier.width(20.dp),
+                                textAling = TextAlign.Center
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
 
 
+                            // Avater circle
+                            Box(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .clip(CircleShape)
+                                    .background(if (isUser) SleekPrimary else Color(0xFFD0BCFF)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = initials,
+                                    color = if (isUser) Color.White else SleekOnSecondaryContainer,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 11.sp
+                                )
+                            }
 
+                            Spacer(modifier = Modifier.width(10.dp))
 
+                            // Name & status
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = if (isUser) "You" else friend.name,
+                                    fontWeight = FontWeight.Bold,
+                                    color = SleekText,
+                                    fontSize = 13.sp
+                                )
+                                Text(
+                                    text = friend.status,
+                                    fontSize = 11.sp,
+                                    color = SleekAccent
+                                )
+                            }
 
+                            // Scroll stats count
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Text(
+                                    text = "${friend.count}",
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (rank == 1) SleekPrimary else SleekText,
+                                    fontSize = 14.sp
+                                )
 
+                                // Delete icon for non-user added friends
+                                if (!friend.isMe && !friend.id.startsWith("friend_")) {
+                                    IconButton(
+                                        onClick = { viewModel.removeFriend(friend.id) },
+                                        modifier = Modifier.size(24.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Delete Friend",
+                                            tint = Color.Red.copy(alpha = 0.6f),
+                                            modifier = Modifier.size(16.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
+    // Real-time Squad Share Invite Link
+    item {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = SleekSecondaryContainer)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = "Share My Invite Link",
+                    fontWeight = FontWeight.Bold,
+                    color = SleekOnSecondaryContainer,
+                    fontSize = 14.sp
+                )
+                Text(
+                    text = "Copy this link to send to your competitive squad. Once pasted, they can track your scrolls!",
+                    fontSize = 11.sp,
+                    color = SleekOnSecondaryContainer.copy(alpha = 0.8f),
+                    modifier = Modifier.padding(vertical = 4.dp)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                val shareLink = viewModel.generateMyShareLink()
 
 
