@@ -19,106 +19,101 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foun
-import java.lang.reflect.Modifier
-import java.nio.file.WatchEvent
-import java.util.function.ObjDoubleConsumer
-
-dation.layout.Row
+import androidx.compose.foun dation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Analytics
-import androidx.compose.material.icons.filled.BatteryFull
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Group
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Leaderboard
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material.icons.filled.Setting
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.SwapVert
-import androidx.compose.material.icons.filled.Wifi
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.Canvas
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.StrokeCap
-import android.content.Intent
-import android.provider.Settings
-import androidx.compose.runtime.DisposableEffect
-import com.example.data.DailyScroll
-import com.example.data.Friend
-import com.example.ui.theme.SleekAccent
-import com.example.ui.theme.SleekBackground
-import com.example.ui.theme.SleekOnSecondaryContainer
-import com.example.ui.theme.SleekOnSurfaceVariant
-import com.example.ui.theme.SleekOutline
-import com.example.ui.theme.SleekPrimary
-import com.example.ui.theme.SleekSecondaryContainer
-import com.example.ui.theme.SleekSelectedContainer
-import com.example.ui.theme.SleekSurfaceVariant
-import com.example.ui.theme.SleekText
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
+        import androidx.compose.foundation.layout.aspectRatio
+        import androidx.compose.foundation.layout.fillMaxHeight
+        import androidx.compose.foundation.layout.fillMaxSize
+        import androidx.compose.foundation.layout.fillMaxWidth
+        import androidx.compose.foundation.layout.height
+        import androidx.compose.foundation.layout.offset
+        import androidx.compose.foundation.layout.padding
+        import androidx.compose.foundation.layout.size
+        import androidx.compose.foundation.layout.width
+        import androidx.compose.foundation.layout.widthIn
+        import androidx.compose.foundation.lazy.LazyColumn
+        import androidx.compose.foundation.lazy.items
+        import androidx.compose.foundation.shape.CircleShape
+        import androidx.compose.foundation.shape.RoundedCornerShape
+        import androidx.compose.material.icons.Icons
+        import androidx.compose.material.icons.filled.Add
+        import androidx.compose.material.icons.filled.Analytics
+        import androidx.compose.material.icons.filled.BatteryFull
+        import androidx.compose.material.icons.filled.ContentCopy
+        import androidx.compose.material.icons.filled.Delete
+        import androidx.compose.material.icons.filled.Group
+        import androidx.compose.material.icons.filled.Home
+        import androidx.compose.material.icons.filled.Info
+        import androidx.compose.material.icons.filled.Leaderboard
+        import androidx.compose.material.icons.filled.Menu
+        import androidx.compose.material.icons.filled.PlayArrow
+        import androidx.compose.material.icons.filled.Refresh
+        import androidx.compose.material.icons.filled.Remove
+        import androidx.compose.material.icons.filled.Settings
+        import androidx.compose.material.icons.filled.Share
+        import androidx.compose.material.icons.filled.SwapVert
+        import androidx.compose.material.icons.filled.Wifi
+        import androidx.compose.material3.Button
+        import androidx.compose.material3.ButtonDefaults
+        import androidx.compose.material3.Card
+        import androidx.compose.material3.CardDefaults
+        import androidx.compose.material3.HorizontalDivider
+        import androidx.compose.material3.Icon
+        import androidx.compose.material3.IconButton
+        import androidx.compose.material3.MaterialTheme
+        import androidx.compose.material3.OutlinedButton
+        import androidx.compose.material3.OutlinedTextField
+        import androidx.compose.material3.OutlinedTextFieldDefaults
+        import androidx.compose.material3.Scaffold
+        import androidx.compose.material3.Slider
+        import androidx.compose.material3.SliderDefaults
+        import androidx.compose.material3.Text
+        import androidx.compose.runtime.Composable
+        import androidx.compose.runtime.LaunchedEffect
+        import androidx.compose.runtime.collectAsState
+        import androidx.compose.runtime.getValue
+        import androidx.compose.runtime.mutableStateOf
+        import androidx.compose.runtime.remember
+        import androidx.compose.runtime.rememberCoroutineScope
+        import androidx.compose.runtime.setValue
+        import androidx.compose.ui.Alignment
+        import androidx.compose.ui.Modifier
+        import androidx.compose.ui.draw.clip
+        import androidx.compose.ui.draw.shadow
+        import androidx.compose.ui.graphics.Brush
+        import androidx.compose.ui.graphics.Color
+        import androidx.compose.ui.input.pointer.pointerInput
+        import androidx.compose.ui.platform.LocalContext
+        import androidx.compose.ui.platform.testTag
+        import androidx.compose.ui.text.font.FontWeight
+        import androidx.compose.ui.text.style.TextAlign
+        import androidx.compose.ui.text.style.TextOverflow
+        import androidx.compose.ui.unit.IntOffset
+        import androidx.compose.ui.unit.dp
+        import androidx.compose.ui.unit.sp
+        import androidx.compose.foundation.Canvas
+        import androidx.compose.ui.graphics.drawscope.Stroke
+        import androidx.compose.ui.graphics.StrokeCap
+        import android.content.Intent
+        import android.provider.Settings
+        import androidx.compose.runtime.DisposableEffect
+        import com.example.data.DailyScroll
+        import com.example.data.Friend
+        import com.example.ui.theme.SleekAccent
+        import com.example.ui.theme.SleekBackground
+        import com.example.ui.theme.SleekOnSecondaryContainer
+        import com.example.ui.theme.SleekOnSurfaceVariant
+        import com.example.ui.theme.SleekOutline
+        import com.example.ui.theme.SleekPrimary
+        import com.example.ui.theme.SleekSecondaryContainer
+        import com.example.ui.theme.SleekSelectedContainer
+        import com.example.ui.theme.SleekSurfaceVariant
+        import com.example.ui.theme.SleekText
+        import kotlinx.coroutines.delay
+        import kotlinx.coroutines.launch
+        import kotlin.math.roundToInt
 
-    // Mock data list for simulated reels swiper
+// Mock data list for simulated reels swiper
         data class MockReel(
     val creator: String,
     val description: String,
@@ -165,15 +160,13 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
     val minutes = (totalSeconds % 3600) / 60
     val timeString = if (hours > 0) "${hours}h ${minutes}m" else "${minutes}m"
 
-// Custom user initials setup (grab from the first letters of user row)
-
 
     val myProfile = leaderboard.firstOrNull { it.isMe }
     val myName = myProfile?.name ?: "You"
     val initials = if (myName.length >= 2) {
         myName.substring(0, 2).uppercase()
     } else {
-        myName.take(1).uppercase().plus("D")
+        ()
     }
 
     Scaffold(
@@ -225,17 +218,14 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
                             timeString = timeString,
                             avgSeconds = secondsPerReel.toInt()
                         )
-
                         1 -> StatsTab(
                             viewModel = viewModel,
                             leaderboard = leaderboard
                         )
-
                         2 -> FriendsTab(
                             viewModel = viewModel,
                             leaderboard = leaderboard
                         )
-
                         3 -> SettingsTab(
                             viewModel = viewModel,
                             currentName = myName,
@@ -248,44 +238,43 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
     }
 }
 
-
-   // SIMULATED STATUS BAR
-   @Composable
-   fun StatusSimulation() {
-       Row(
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(horizontal = 24.dp, vertical = 6.dp),
-           horizontalArrangement = Arrangement.SpaceBetween,
-           verticalAlignment = Alignment.CenterVertically
-       ) {
-           Text(
-               text = "9:41",
-               style = MaterialTheme.typography.labelMedium.copy(
-                   fontWeight = FontWeight.Bold,
-                   color = SleekText,
-                   fontSize = 13.sp
-               )
-           )Row(
-                   verticalAlignment = Alignment.CenterVertically,
-           horizontalArrangement = Arrangement.spacedBy(4.dp)
-           ) {
-           Icon(
-               imageVector = Icons.Default.Wifi,
-               contentDescription = "Wifi",
-               tint = SleekText,
-               modifier = Modifier.size(14.dp)
-           )
-           Icon(
-               imageVector = Icons.Default.BatteryFull,
-               contentDescription = "Battery",
-               tint = SleekText,
-               modifier = Modifier.size(14.dp)
-           )
-       }
-       }
-   }
-
+// SIMULATED STATUS BAR
+@Composable
+fun StatusSimulation() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 6.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "9:41",
+            style = MaterialTheme.typography.labelMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = SleekText,
+                fontSize = 13.sp
+            )
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Wifi,
+                contentDescription = "Wifi",
+                tint = SleekText,
+                modifier = Modifier.size(14.dp)
+            )
+            Icon(
+                imageVector = Icons.Default.BatteryFull,
+                contentDescription = "Battery",
+                tint = SleekText,
+                modifier = Modifier.size(14.dp)
+            )
+        }
+    }
+}
 
 // CUSTOM TOP APP BAR
 @Composable
@@ -333,8 +322,7 @@ fun HeaderBar(userInitials: String, onMenuClick: () -> Unit) {
     }
 }
 
-
-/ ABOUT DIALOG CONTENT
+// ABOUT DIALOG CONTENT
 @Composable
 fun AboutInfoDialog(onDismiss: () -> Unit) {
     Card(
@@ -365,10 +353,10 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "Track your scroll session, calculate estimated time spent, and compete with friend using customized squad invite links! Built offline-first with local Room persistence and high-fidelity scrolling simulator.",
+                text = "Track your scroll sessions, calculate estimated time spent, and compete with friends using customized squad invite links! Built offline-first with local Room persistence and high-fidelity scrolling simulator.",
                 fontSize = 13.sp,
                 color = SleekOnSurfaceVariant.copy(alpha = 0.85f),
-                textAling = TextAling.Center,
+                textAlign = TextAlign.Center,
                 lineHeight = 18.sp
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -377,7 +365,6 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
                 border = BorderStroke(1.dp, SleekOutline),
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = SleekPrimary),
                 shape = RoundedCornerShape(50)
-
             ) {
                 Text("Dismiss", fontWeight = FontWeight.Bold)
             }
@@ -385,10 +372,7 @@ fun AboutInfoDialog(onDismiss: () -> Unit) {
     }
 }
 
-
-
 // Sleek Central Activity Dial Counter Composable
-
 @Composable
 fun SleekCentralCounter(
     reelsCount: Int,
@@ -522,10 +506,7 @@ fun SleekCentralCounter(
     }
 }
 
-
-
-/// Main TRACKER VIEWER (Home)
-
+// MAIN TRACKER VIEW (Home)
 @Composable
 fun TrackerTab(
     viewModel: ReelViewModel,
@@ -552,7 +533,7 @@ fun TrackerTab(
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangment = Arrangment.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // Today's Sleek Circular Dial Counter
         item {
@@ -563,9 +544,9 @@ fun TrackerTab(
             )
         }
 
-// Accessibility Tracker Status Card
+        // Accessibility Tracker Status Card
         item {
-            card(
+            Card(
                 modifier = Modifier.fillMaxWidth().testTag("service_status_card"),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -593,7 +574,6 @@ fun TrackerTab(
                         }
 
                         // Active/Inactive badge
-
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -616,6 +596,7 @@ fun TrackerTab(
                             )
                         }
                     }
+
                     Spacer(modifier = Modifier.height(16.dp))
 
                     if (!isServiceEnabled) {
@@ -715,7 +696,6 @@ fun TrackerTab(
             }
         }
 
-
         // Quick Manual Actions Fallback Card
         item {
             Card(
@@ -803,13 +783,13 @@ fun TrackerTab(
                 }
             }
         }
+
         item { Spacer(modifier = Modifier.height(12.dp)) }
     }
 }
 
- // comprehensive state Tab
-
-@Camposable
+// COMPREHENSIVE STATS TAB
+@Composable
 fun StatsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
     var myCurrentCount = 0
     val totalSquadCount = leaderboard.sumOf { it.count }
@@ -871,6 +851,7 @@ fun StatsTab(viewModel: ReelViewModel, leaderboard: List<Friend>) {
                         )
                     }
                 }
+
                 // Time Saved card
                 Card(
                     modifier = Modifier.weight(1f),
@@ -1619,33 +1600,337 @@ Text("Set Up Security PIN", color = Color.White, fontWeight = FontWeight.Bold)
 }
 }
 
+// Scroll statistics tuning
+item {
+Card(
+modifier = Modifier.fillMaxWidth(),
+shape = RoundedCornerShape(24.dp),
+colors = CardDefaults.cardColors(containerColor = Color.White),
+border = BorderStroke(1.dp, SleekOutline)
+) {
+Column(modifier = Modifier.padding(16.dp)) {
+Text(
+text = "Average Reel Watch Time",
+fontWeight = FontWeight.Bold,
+color = SleekText,
+fontSize = 14.sp
+)
+Text(
+text = "Set average watch time to estimate total screen time scrolling reels correctly.",
+fontSize = 11.sp,
+color = SleekOnSurfaceVariant,
+modifier = Modifier.padding(vertical = 4.dp)
+)
+Spacer(modifier = Modifier.height(8.dp))
 
+Text(
+text = "${avgSecondsVal.roundToInt()} seconds per reel",
+fontWeight = FontWeight.Bold,
+color = SleekPrimary,
+fontSize = 15.sp
+)
 
+Slider(
+value = avgSecondsVal,
+onValueChange = { avgSecondsVal = it },
+onValueChangeFinished = {
+coroutineScope.launch {
+val current = viewModel.todayScroll.value ?: DailyScroll(date = viewModel.getTodayDateString(), count = 0)
+viewModel.updateScrollCount(0) // Trigger state reload
+// Let's update average time
+val updated = current.copy(averageTimePerReel = avgSecondsVal)
+// Save this record
+viewModel.updateScrollCount(0)
+}
+},
+valueRange = 5f..60f,
+steps = 11,
+colors = SliderDefaults.colors(
+thumbColor = SleekPrimary,
+activeTrackColor = SleekPrimary,
+inactiveTrackColor = SleekSurfaceVariant
+),
+modifier = Modifier.fillMaxWidth()
+)
+}
+}
+}
 
+// Developer tools reset card
+item {
+Card(
+modifier = Modifier.fillMaxWidth(),
+shape = RoundedCornerShape(24.dp),
+colors = CardDefaults.cardColors(containerColor = SleekSurfaceVariant)
+) {
+Column(modifier = Modifier.padding(16.dp)) {
+Text(
+text = "Dangerous Zone",
+fontWeight = FontWeight.Bold,
+color = Color.Red,
+fontSize = 14.sp
+)
+Spacer(modifier = Modifier.height(4.dp))
+Text(
+text = "This will erase all logs, remove added challengers, and reset stand stats to starting values.",
+fontSize = 11.sp,
+color = SleekOnSurfaceVariant
+)
+Spacer(modifier = Modifier.height(12.dp))
 
+Button(
+onClick = {
+coroutineScope.launch {
+// reset count and refresh friends list
+viewModel.updateScrollCount(-(viewModel.todayScroll.value?.count ?: 0))
+Toast.makeText(context, "Statistics reset successfully!", Toast.LENGTH_SHORT).show()
+}
+},
+colors = ButtonDefaults.buttonColors(containerColor = Color.Red.copy(alpha = 0.85f)),
+shape = RoundedCornerShape(50),
+modifier = Modifier.fillMaxWidth()
+) {
+Text("Reset All Stat Counts", fontWeight = FontWeight.Bold, color = Color.White)
+}
+}
+}
+}
 
+item { Spacer(modifier = Modifier.height(16.dp)) }
+}
+}
 
+// BOTTOM NAVIGATION BAR (Styling matches design exactly)
+@Composable
+fun BottomNavBar(selectedTab: Int, onTabSelected: (Int) -> Unit) {
+Row(
+modifier = Modifier
+.fillMaxWidth()
+.height(72.dp)
+.background(SleekSurfaceVariant)
+.border(1.dp, SleekOutline, RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+.padding(bottom = 4.dp),
+horizontalArrangement = Arrangement.SpaceAround,
+verticalAlignment = Alignment.CenterVertically
+) {
+NavBarItem(
+icon = Icons.Default.Home,
+label = "Home",
+isSelected = selectedTab == 0,
+onClick = { onTabSelected(0) },
+testTag = "tab_home"
+)
+NavBarItem(
+icon = Icons.Default.Analytics,
+label = "Stats",
+isSelected = selectedTab == 1,
+onClick = { onTabSelected(1) },
+testTag = "tab_stats"
+)
+NavBarItem(
+icon = Icons.Default.Group,
+label = "Friends",
+isSelected = selectedTab == 2,
+onClick = { onTabSelected(2) },
+testTag = "tab_friends"
+)
+NavBarItem(
+icon = Icons.Default.Settings,
+label = "Settings",
+isSelected = selectedTab == 3,
+onClick = { onTabSelected(3) },
+testTag = "tab_settings"
+)
+}
+}
 
+@Composable
+fun NavBarItem(
+icon: androidx.compose.ui.graphics.vector.ImageVector,
+label: String,
+isSelected: Boolean,
+onClick: () -> Unit,
+testTag: String
+) {
+val containerBg = if (isSelected) SleekSelectedContainer else Color.Transparent
+val labelWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+val iconColor = if (isSelected) SleekText else SleekOnSurfaceVariant
 
+Column(
+modifier = Modifier
+.clickable(onClick = onClick)
+.padding(vertical = 4.dp)
+.testTag(testTag),
+horizontalAlignment = Alignment.CenterHorizontally,
+verticalArrangement = Arrangement.spacedBy(4.dp)
+) {
+Box(
+modifier = Modifier
+.clip(RoundedCornerShape(50))
+.background(containerBg)
+.padding(horizontal = 18.dp, vertical = 4.dp),
+contentAlignment = Alignment.Center
+) {
+Icon(
+imageVector = icon,
+contentDescription = label,
+tint = iconColor,
+modifier = Modifier.size(20.dp)
+)
+}
+Text(
+text = label,
+fontSize = 11.sp,
+fontWeight = labelWeight,
+color = iconColor
+)
+}
+}
 
+// Elegant Apple-styled LockScreen Overlay for local data security
+@Composable
+fun LockScreen(viewModel: ReelViewModel) {
+var codeEntered by remember { mutableStateOf("") }
+var showError by remember { mutableStateOf(false) }
 
+Box(
+modifier = Modifier
+.fillMaxSize()
+.background(SleekBackground),
+contentAlignment = Alignment.Center
+) {
+Column(
+modifier = Modifier
+.widthIn(max = 450.dp)
+.fillMaxHeight()
+.padding(24.dp),
+horizontalAlignment = Alignment.CenterHorizontally,
+verticalArrangement = Arrangement.Center
+) {
+// App icon lock indication
+Box(
+modifier = Modifier
+.size(80.dp)
+.clip(RoundedCornerShape(22.dp))
+.background(Color.White)
+.border(1.dp, SleekOutline, RoundedCornerShape(22.dp)),
+contentAlignment = Alignment.Center
+) {
+Icon(
+imageVector = Icons.Default.Settings,
+contentDescription = "Lock Icon",
+tint = SleekPrimary,
+modifier = Modifier.size(38.dp)
+)
+}
 
+Spacer(modifier = Modifier.height(28.dp))
 
+Text(
+text = "AeroScroll Security",
+style = MaterialTheme.typography.headlineMedium.copy(
+fontWeight = FontWeight.Bold,
+color = SleekText,
+letterSpacing = (-0.5).sp
+)
+)
 
+Spacer(modifier = Modifier.height(8.dp))
 
+Text(
+text = if (showError) "Incorrect Passcode. Try again." else "Enter passcode to unlock statistics",
+color = if (showError) Color.Red else SleekAccent,
+fontWeight = FontWeight.Medium,
+fontSize = 14.sp
+)
 
+Spacer(modifier = Modifier.height(40.dp))
 
+// Dot indicators (Apple Style)
+Row(
+horizontalArrangement = Arrangement.spacedBy(16.dp),
+verticalAlignment = Alignment.CenterVertically
+) {
+for (i in 1..4) {
+val filled = codeEntered.length >= i
+Box(
+modifier = Modifier
+.size(16.dp)
+.clip(CircleShape)
+.background(if (filled) SleekPrimary else Color.White)
+.border(1.5.dp, SleekOutline, CircleShape)
+)
+}
+}
 
+Spacer(modifier = Modifier.height(48.dp))
 
+// Grid of numbers 1-9, Backspace, 0, Clear
+val buttons = listOf(
+listOf("1", "2", "3"),
+listOf("4", "5", "6"),
+listOf("7", "8", "9"),
+listOf("Clear", "0", "⌫")
+)
 
-
-
-
-
-
-
-
-
+Column(
+verticalArrangement = Arrangement.spacedBy(16.dp),
+horizontalAlignment = Alignment.CenterHorizontally
+) {
+buttons.forEach { row ->
+Row(
+horizontalArrangement = Arrangement.spacedBy(24.dp)
+) {
+row.forEach { char ->
+val isSpecial = char == "Clear" || char == "⌫"
+Box(
+modifier = Modifier
+.size(72.dp)
+.clip(CircleShape)
+.background(if (isSpecial) Color.Transparent else Color.White)
+.clickable {
+showError = false
+when (char) {
+"Clear" -> {
+codeEntered = ""
+}
+"⌫" -> {
+if (codeEntered.isNotEmpty()) {
+codeEntered = codeEntered.dropLast(1)
+}
+}
+else -> {
+if (codeEntered.length < 4) {
+val newCode = codeEntered + char
+codeEntered = newCode
+if (newCode.length == 4) {
+val success = viewModel.unlock(newCode)
+if (!success) {
+showError = true
+codeEntered = ""
+}
+}
+}
+}
+}
+}
+.border(if (isSpecial) 0.dp else 1.dp, SleekOutline, CircleShape),
+contentAlignment = Alignment.Center
+) {
+Text(
+text = char,
+fontSize = if (isSpecial) 14.sp else 24.sp,
+fontWeight = FontWeight.SemiBold,
+color = if (isSpecial) SleekAccent else SleekText
+)
+}
+}
+}
+}
+}
+}
+}
+}
 
 
 
