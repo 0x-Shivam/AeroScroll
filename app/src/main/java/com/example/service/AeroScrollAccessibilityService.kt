@@ -1,6 +1,5 @@
 package com.example.service
 
-
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Context
@@ -8,7 +7,6 @@ import android.content.Intent
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityNodeInfo
 import com.example.data.AppDatabase
 import com.example.data.DailyScroll
 import com.example.data.Friend
@@ -19,7 +17,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import kotlin.coroutines.CoroutineContext
 
 class AeroScrollAccessibilityService : AccessibilityService() {
 
@@ -69,33 +66,48 @@ class AeroScrollAccessibilityService : AccessibilityService() {
         }
         this.serviceInfo = info
     }
+
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         val packageName = event.packageName?.toString() ?: return
         if (packageName != "com.instagram.android") return
 
         val eventType = event.eventType
+        val source = event.source
 
-        // Debounced check to avoid double-counting scrolls during rapid gesture segments
+        // Improved counting logic:
+        // 1. Look for specific scroll events
+        // 2. Verify we are likely looking at a Reel by checking for common Reel UI patterns 
+        //    (e.g., full-screen scrollable containers)
+        
         if (eventType == AccessibilityEvent.TYPE_VIEW_SCROLLED) {
             val now = System.currentTimeMillis()
-            if (now - lastScrollTime > 1500) { // Typically people spend at least 1.5 seconds per Reel
+            
+            // Check if the scrolled view is likely a Reel container
+            // In Instagram Reels, the main container is usually a full-screen vertical pager
+            val isLikelyReelContainer = source?.let {
+                it.isScrollable && it.className?.contains("ViewPager", ignoreCase = true) == true
+            } ?: true // Fallback to true if we can't be sure
+
+            if (isLikelyReelContainer && now - lastScrollTime > 2200) {
                 lastScrollTime = now
                 incrementInstagramScrollCount()
             }
         } else if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
-            val source = event.source ?: return
-            val hash = source.hashCode()
-            if (hash != lastNodeHash) {
-                lastNodeHash = hash
-                val now = System.currentTimeMillis()
-                if (now - lastScrollTime > 1800) {
-                    if (source.isScrollable) {
-                        lastScrollTime = now
-                        incrementInstagramScrollCount()
-                    }
+            val now = System.currentTimeMillis()
+            
+            if (source?.isScrollable == true && now - lastScrollTime > 3500) {
+                // Check if the content change looks like a new Reel loading
+                // (e.g. hash of the node structure changed significantly)
+                val hash = source.hashCode()
+                if (hash != lastNodeHash) {
+                    lastNodeHash = hash
+                    lastScrollTime = now
+                    incrementInstagramScrollCount()
                 }
             }
         }
+        
+        source?.recycle()
     }
 
     private fun incrementInstagramScrollCount() {
@@ -109,7 +121,6 @@ class AeroScrollAccessibilityService : AccessibilityService() {
             val newTimeSpent = newCount * scrollRecord.averageTimePerReel.toLong()
             dao.insertOrUpdateDailyScroll(scrollRecord.copy(count = newCount, timeSpentSeconds = newTimeSpent))
 
-            // Sync with local Profile
             val myProfile = dao.getMyProfileDirect()
             if (myProfile != null) {
                 dao.insertOrUpdateFriend(myProfile.copy(count = newCount))
@@ -125,9 +136,7 @@ class AeroScrollAccessibilityService : AccessibilityService() {
         }
     }
 
-    override fun onInterrupt() {
-        // Required method override
-    }
+    override fun onInterrupt() {}
 
     override fun onDestroy() {
         super.onDestroy()

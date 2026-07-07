@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AeroScroll</string>
+    <string name="accessibility_service_description">Tracks your Instagram Reel scrolls to help you stay mindful of your usage.</string>
 </resources>
