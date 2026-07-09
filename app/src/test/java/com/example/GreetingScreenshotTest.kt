@@ -24,7 +24,11 @@ class GreetingScreenshotTest {
 
     @Test
     fun greeting_screenshot() {
-        composeTestRule.setContent { MyApplicationTheme { Greeting("Robolectric") } }
+        composeTestRule.setContent { 
+            MyApplicationTheme { 
+                Greeting("Robolectric") 
+            } 
+        }
 
         composeTestRule.onRoot().captureRoboImage(filePath = "src/test/screenshots/greeting.png")
     }
@@ -34,4 +38,3 @@ class GreetingScreenshotTest {
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
-
