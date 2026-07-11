@@ -45,4 +45,10 @@ class ReelRepository(private val reelDao: ReelDao) {
     suspend fun deleteFriend(friendId: String) {
         reelDao.deleteFriend(friendId)
     }
+
+    suspend fun resetDailyData(todayDate: String) {
+        reelDao.resetAllFriendCounts()
+        // Optional: Keep only last 3 days of data to save space
+        // reelDao.deleteOldScrolls(...)
+    }
 }

@@ -34,4 +34,10 @@ interface ReelDao {
 
     @Query("DELETE FROM friends WHERE id = :friendId")
     suspend fun deleteFriend(friendId: String)
+
+    @Query("UPDATE friends SET count = 0")
+    suspend fun resetAllFriendCounts()
+
+    @Query("DELETE FROM daily_scrolls WHERE date < :date")
+    suspend fun deleteOldScrolls(date: String)
 }

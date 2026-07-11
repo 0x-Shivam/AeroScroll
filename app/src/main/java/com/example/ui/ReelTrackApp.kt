@@ -12,6 +12,7 @@ import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material.icons.filled.Warning
@@ -39,6 +40,7 @@ import java.util.UUID
 fun ReelTrackApp(viewModel: ReelViewModel) {
     val todayScroll by viewModel.todayScroll.collectAsState()
     val friends by viewModel.allFriends.collectAsState()
+    val timeUntilReset by viewModel.timeUntilReset.collectAsState()
     var showAddFriendDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -208,12 +210,19 @@ fun ReelTrackApp(viewModel: ReelViewModel) {
                         color = Color.White
                     )
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.AutoMirrored.Filled.TrendingUp, contentDescription = null, tint = Color.White.copy(alpha = 0.7f), modifier = Modifier.size(16.dp))
+                        Icon(
+                            Icons.Default.History, 
+                            contentDescription = null, 
+                            tint = Color.White.copy(alpha = 0.7f), 
+                            modifier = Modifier.size(16.dp)
+                        )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            "Keep it low to stay focused!",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = Color.White.copy(alpha = 0.7f)
+                            "Resets in $timeUntilReset",
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = Color.White.copy(alpha = 0.9f)
                         )
                     }
                 }
