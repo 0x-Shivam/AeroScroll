@@ -36,10 +36,6 @@ AeroScroll is built with Android tech:
 
 * **Testing**: Robolectric and Roborazzi for testing.
 
-## Ai Use
-* **Design**: I used it for getting inspiration of ui desing and icon 
-* **Debug**: It help me many time to solve Error
-
 ## Future Roadmap
 
 * **Firebase Integration**: Sync your leaderboard with friends
