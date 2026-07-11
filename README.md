@@ -38,6 +38,11 @@ AeroScroll is built with Android tech:
 
 ## Future Roadmap
 
+## Ai use 
+
+* **Design**:It help to desing UI and icon of app
+* **Debug**Help to solve error and also solve mismatch version lib
+
 * **Firebase Integration**: Sync your leaderboard with friends
 
 * **Personal Goals**: Set a Reel Limit" and get notifications when you're getting close.
